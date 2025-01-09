@@ -50,10 +50,14 @@ def extract_als():
             print("Extracting beatmap...")
             for locator in root.findall(".//Locator"):
                 time_element = locator.find("./Time")
+                name_element = locator.find("./Name")
+                
                 if time_element is not None:
                     locator_time_in_beats = float(time_element.get('Value', '0.0'))
                     locator_time_in_seconds = locator_time_in_beats * seconds_per_beat
-                    timestamps_in_seconds[str(round(locator_time_in_seconds, 1))] = {}
+                    locator_name = name_element.get('Value', 'Unnamed')
+                    print(locator_name)
+                    timestamps_in_seconds[str(round(locator_time_in_seconds, 1))] = {locator_name: ""}
                 else:
                     invalid_timestamps.append("N/A")
 
